@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collège Jacques Prévert - Bergerac</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: #000;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .discord-banner {
+            background: linear-gradient(90deg, #1a1a1a, #2a2a2a, #1a1a1a);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.1rem;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .discord-banner a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        header {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888, #444444, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: underline;
+            text-decoration-color: #888;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #ffffff, #aaaaaa, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            background: #2a2a2a;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav li {
+            margin: 0.5rem 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .emoji-animated {
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .emoji-rotate {
+            display: inline-block;
+            animation: rotate 3s linear infinite;
+        }
+
+        .emoji-pulse {
+            display: inline-block;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .hero {
+            background: #1a1a1a;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            border-bottom: 2px solid #333;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888, #444444, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(90deg, #ffffff, #dddddd, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+
+        section:nth-child(odd) {
+            background: #1a1a1a;
+        }
+
+        section:nth-child(even) {
+            background: #0a0a0a;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888, #444444, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 3px solid #333;
+            padding-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .matiere-card, .activite-card, .numero-card {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .matiere-card:hover, .activite-card:hover, .numero-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+        }
+
+        .matiere-card h3, .activite-card h3, .numero-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .matiere-card p, .activite-card p, .numero-card p {
+            color: #ccc;
+        }
+
+        .pronote-box, .contact-info, .info-box {
+            background: #2a2a2a;
+            padding: 2rem;
+            border-radius: 10px;
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .pronote-box p, .contact-info p, .info-box p {
+            color: #ccc;
+        }
+
+        .pronote-btn {
+            display: inline-block;
+            background: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            margin-top: 1rem;
+            border: 2px solid #444;
+        }
+
+        .pronote-btn:hover {
+            transform: scale(1.05);
+            background: #2a2a2a;
+        }
+
+        .contact-info strong {
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .numero-card a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .numero-card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 2px solid #333;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="https://blogpeda.ac-bordeaux.fr/collegejacquesprevert24/files/2021/04/cropped-Banni%C3%A8reSh.jpg" alt="Bannière Collège Jacques Prévert" class="banner-image">
+    
+    <div class="discord-banner">
+        <span class="emoji-pulse">🎉</span> N'hésitez pas à rejoindre le Discord du collège : <a href="https://discord.gg/gGwUrxNsMS" target="_blank">Rejoindre ici</a> <span class="emoji-pulse">🎮</span>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1><span class="emoji-rotate">🎓</span> Collège Jacques Prévert</h1>
+            <p class="subtitle"><span class="emoji-pulse">📍</span> Bergerac - Dordogne</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#presentation"><span class="emoji-animated">📚</span> Présentation</a></li>
+            <li><a href="#pronote"><span class="emoji-rotate">💻</span> Pronote</a></li>
+            <li><a href="#matieres"><span class="emoji-pulse">📖</span> Matières</a></li>
+            <li><a href="#activites"><span class="emoji-animated">🎨</span> Activités</a></li>
+            <li><a href="#contact"><span class="emoji-pulse">✉️</span> Contact</a></li>
+            <li><a href="#numeros-utiles"><span class="emoji-pulse">📞</span> Numéros Utiles</a></li>
+            <li><a href="#parents"><span class="emoji-animated">👨‍👩‍👧‍👦</span> Parents</a></li>
+            <li><a href="#acces"><span class="emoji-rotate">🗺️</span> Accès</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h2><span class="emoji-pulse">✨</span> Bienvenue au Collège Jacques Prévert <span class="emoji-pulse">✨</span></h2>
+        <p>Un établissement d'excellence au cœur de Bergerac, dédié à la réussite et à l'épanouissement de tous nos élèves</p>
+    </div>
+
+    <div class="container">
+        <section id="presentation">
+            <h2><span class="emoji-animated">📚</span> Présentation du Collège</h2>
+            <p><span class="emoji-pulse">🏫</span> Le Collège Jacques Prévert de Bergerac accueille environ 600 élèves de la 6ème à la 3ème dans un cadre agréable et moderne. Notre établissement se distingue par son engagement envers la réussite de chaque élève et son ouverture sur le monde.</p>
+            <p style="margin-top: 1rem;"><strong><span class="emoji-rotate">⭐</span> Nos valeurs :</strong></p>
+            <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                <li><span class="emoji-pulse">✅</span> Excellence académique</li>
+                <li><span class="emoji-animated">✅</span> Respect et tolérance</li>
+                <li><span class="emoji-rotate">✅</span> Épanouissement personnel</li>
+                <li><span class="emoji-pulse">✅</span> Innovation pédagogique</li>
+            </ul>
+        </section>
+
+        <section id="pronote">
+            <h2><span class="emoji-rotate">💻</span> Pronote</h2>
+            <div class="pronote-box">
+                <p style="font-size: 1.2rem; margin-bottom: 1.5rem;"><span class="emoji-animated">📱</span> Accédez à votre espace Pronote pour consulter vos notes, devoirs et emploi du temps <span class="emoji-pulse">📝</span></p>
+                <a href="https://0240996c.index-education.net/pronote/" target="_blank" class="pronote-btn">
+                    <span class="emoji-rotate">🔗</span> Accéder à Pronote
+                </a>
+            </div>
+        </section>
+
+        <section id="matieres">
+            <h2><span class="emoji-pulse">📖</span> Matières et Programmes</h2>
+            
+            <div class="matiere-card">
+                <h3><span class="emoji-animated">🗣️</span> Français & Langues</h3>
+                <p>Français, Anglais (LV1), Italien (LV2), Latin (option)</p>
+            </div>
+
+            <div class="matiere-card">
+                <h3><span class="emoji-rotate">🔬</span> Sciences</h3>
+                <p>Mathématiques, Sciences Physiques, SVT (Sciences de la Vie et de la Terre), Technologie</p>
+            </div>
+
+            <div class="matiere-card">
+                <h3><span class="emoji-pulse">🌍</span> Sciences Humaines</h3>
+                <p>Histoire-Géographie, Enseignement Moral et Civique (EMC)</p>
+            </div>
+
+            <div class="matiere-card">
+                <h3><span class="emoji-animated">🎨</span> Arts & Sport</h3>
+                <p>Éducation Physique et Sportive (EPS), Arts Plastiques, Éducation Musicale</p>
+            </div>
+        </section>
+
+        <section id="activites">
+            <h2><span class="emoji-animated">🎨</span> Activités Périscolaires</h2>
+            
+            <div class="activite-card">
+                <h3><span class="emoji-pulse">🎭</span> Club Théâtre</h3>
+                <p>Atelier d'expression théâtrale tous les mardis. Spectacle de fin d'année ouvert aux familles.</p>
+            </div>
+
+            <div class="activite-card">
+                <h3><span class="emoji-animated">🎵</span> Chorale</h3>
+                <p>Chants et spectacles musicaux. Ouvert à tous les niveaux, tous les jeudis midi.</p>
+            </div>
+
+            <div class="activite-card">
+                <h3><span class="emoji-rotate">✨</span> Et bien d'autres encore !</h3>
+                <p>Association sportive, clubs scientifiques, ateliers créatifs... Renseignez-vous auprès de la vie scolaire pour découvrir toutes nos activités ! <span class="emoji-animated">🌟</span></p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2><span class="emoji-pulse">✉️</span> Contact et Horaires</h2>
+            <div class="contact-info">
+                <p><strong><span class="emoji-animated">📍</span> Adresse :</strong><br>Collège Jacques Prévert<br>18, Rue Armand Got<br>24 100 Bergerac</p>
+                
+                <p><strong><span class="emoji-pulse">☎️</span> Téléphone :</strong> 05 54 59 02 00</p>
+                
+                <p><strong><span class="emoji-animated">📧</span> Email :</strong> ce.0240996c@ac-bordeaux.fr</p>
+                
+                <p><strong><span class="emoji-rotate">🕐</span> Horaires du service "Vie scolaire" :</strong><br>
+                Lundi au Vendredi : 07h45 à 12h00 et de 13h00 à 17h00<br>
+                Mercredi : 07h45 à 13h00</p>
+                
+                <p><strong><span class="emoji-pulse">📝</span> Justification des absences :</strong><br>
+                Les absences peuvent être justifiées par mail à l'adresse ci-dessus.</p>
+            </div>
+        </section>
+
+        <section id="numeros-utiles">
+            <h2><span class="emoji-pulse">📞</span> Numéros Utiles</h2>
+            
+            <div class="numero-card">
+                <h3><span class="emoji-pulse">🆘</span> Enfance en Danger</h3>
+                <p><strong>Téléphone :</strong> 119</p>
+                <p><strong>Site internet :</strong> <a href="https://www.allo119.gouv.fr" target="_blank">www.allo119.gouv.fr</a></p>
+            </div>
+
+            <div class="numero-card">
+                <h3><span class="emoji-animated">🛑</span> Non au Harcèlement</h3>
+                <p><strong>Téléphone :</strong> 3020</p>
+                <p><strong>Site internet :</strong> <a href="https://www.nonauharcelement.education.gouv.fr" target="_blank">www.nonauharcelement.education.gouv.fr</a></p>
+            </div>
+
+            <div class="numero-card">
+                <h3><span class="emoji-rotate">💻</span> Cyber-Harcèlement : NetÉcoute</h3>
+                <p><strong>Téléphone :</strong> 3018</p>
+                <p><strong>Site internet :</strong> <a href="https://www.netecoute.fr" target="_blank">www.netecoute.fr</a></p>
+            </div>
+
+            <div class="numero-card">
+                <h3><span class="emoji-pulse">💚</span> Fil Santé Jeunes</h3>
+                <p><strong>Téléphone :</strong> 0800 235 326</p>
+                <p><strong>Site internet :</strong> <a href="https://www.filsantejeunes.com" target="_blank">www.filsantejeunes.com</a></p>
+            </div>
+
+            <div class="numero-card">
+                <h3><span class="emoji-animated">💙</span> Prévention Suicide</h3>
+                <p><strong>Téléphone :</strong> 3114</p>
+                <p><strong>Site internet :</strong> <a href="https://www.3114.fr" target="_blank">www.3114.fr</a></p>
+            </div>
+
+            <div class="numero-card">
+                <h3><span class="emoji-rotate">🔒</span> Assistance famille risque de radicalisation djihadiste</h3>
+                <p><strong>Téléphone :</strong> 0800 00 56 96</p>
+                <p><strong>Site internet :</strong> <a href="https://www.interieur.gouv.fr" target="_blank">www.interieur.gouv.fr</a></p>
+            </div>
+
+            <div class="numero-card">
+                <h3><span class="emoji-pulse">🏠</span> Maison des Adolescents</h3>
+                <p><strong>Téléphone :</strong> 05 53 61 55 93, 06 38 70 82 38</p>
+                <p><strong>Adresse :</strong> 6 place Bellegarde, Bergerac</p>
+                <p><strong>Site internet :</strong> <a href="https://anmda.fr/les-mda/maison-adolescents-dordogne" target="_blank">anmda.fr/les-mda/maison-adolescents-dordogne</a></p>
+            </div>
+        </section>
+
+        <section id="parents">
+            <h2><span class="emoji-animated">👨‍👩‍👧‍👦</span> Association des Parents d'Élèves</h2>
+            <div class="info-box">
+                <p><span class="emoji-pulse">👥</span> Les parents d'élèves sont représentés dans les instances de l'établissement.</p>
+                <p style="margin-top: 1rem;"><span class="emoji-rotate">🤝</span> Au collège Jacques Prévert, l'association des parents d'élèves est affiliée à la fédération <strong>PÉEP</strong> (Parents d'Élèves de l'Enseignement Public).</p>
+                <p style="margin-top: 1rem;"><span class="emoji-animated">📢</span> Si vous souhaitez être représentant aux conseils de classe, participer au conseil d'administration du collège ou siéger aux diverses commissions, n'hésitez pas à prendre contact avec l'établissement.</p>
+            </div>
+        </section>
+
+        <section id="acces">
+            <h2><span class="emoji-rotate">🗺️</span> Accès</h2>
+            <div class="info-box">
+                <p><span class="emoji-animated">📍</span> <strong>Le Collège Jacques Prévert se situe à l'Ouest de Bergerac à l'adresse suivante :</strong></p>
+                <p style="margin-top: 1rem; font-size: 1.2rem; text-align: center; font-weight: bold;">
+                    <span class="emoji-pulse">🏫</span> 18, rue Armand Got<br>
+                    24100 BERGERAC
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p><span class="emoji-pulse">©</span> 2025-2026 Collège Jacques Prévert - Bergerac</p>
+        <p><span class="emoji-animated">✨</span> Site créé par un élève du collège - Représentant des élèves <span class="emoji-pulse">💙</span></p>
+    </footer>
+</body>
+</html>

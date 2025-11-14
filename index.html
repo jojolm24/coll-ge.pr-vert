@@ -765,7 +765,7 @@
                 isAdmin = true;
                 closeAdminModal();
                 document.getElementById('adminPanel').classList.add('show');
-                alert('✅ L'accès administrateur vous a étè attribué !');
+                alert('✅ L'accès administrateur attriubé !');
             } else {
                 document.getElementById('errorMsg').style.display = 'block';
             }
@@ -821,7 +821,7 @@
                 localStorage.setItem('college-photos', JSON.stringify(photos));
                 displayPhotos();
                 input.value = '';
-                alert(':rotating_light:En cours de dévèlopement :rotating_light: ');
+                alert('✅ Photo ajoutée avec succès !');
             };
             reader.readAsDataURL(file);
         }
@@ -847,5 +847,4 @@
         });
     </script>
 </body>
-</html>
-
+</html> 

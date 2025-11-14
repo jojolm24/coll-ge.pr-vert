@@ -303,6 +303,189 @@
             background-clip: text;
         }
 
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            z-index: 999;
+            border: 2px solid #444;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        .admin-btn {
+            background: #2a2a2a;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #444;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            background: #3a3a3a;
+            transform: scale(1.05);
+        }
+
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .admin-modal.show {
+            display: flex;
+        }
+
+        .admin-content {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #444;
+        }
+
+        .admin-content h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(90deg, #ffffff, #cccccc, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-content input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            background: #2a2a2a;
+            border: 2px solid #444;
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .admin-content button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 2px solid #444;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .admin-content button:hover {
+            background: #3a3a3a;
+            transform: scale(1.05);
+        }
+
+        .admin-panel {
+            display: none;
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border: 2px solid #444;
+        }
+
+        .admin-panel.show {
+            display: block;
+        }
+
+        .photo-upload {
+            margin-top: 1rem;
+        }
+
+        .photo-upload input[type="file"] {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 2px solid #444;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .photo-item {
+            position: relative;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #444;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-item .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .photo-item:hover .delete-btn {
+            display: block;
+        }
+
+        .gallery-section {
+            margin-top: 2rem;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8rem;
@@ -347,6 +530,7 @@
             <li><a href="#numeros-utiles"><span class="emoji-pulse">📞</span> Numéros Utiles</a></li>
             <li><a href="#parents"><span class="emoji-animated">👨‍👩‍👧‍👦</span> Parents</a></li>
             <li><a href="#acces"><span class="emoji-rotate">🗺️</span> Accès</a></li>
+            <li><a href="#galerie"><span class="emoji-pulse">📸</span> Galerie</a></li>
         </ul>
     </nav>
 
@@ -505,13 +689,162 @@
                 </p>
             </div>
         </section>
+
+        <section id="galerie">
+            <h2><span class="emoji-pulse">📸</span> Galerie Photos</h2>
+            <div class="gallery-section">
+                <div id="photoGallery" class="photo-grid"></div>
+                <p id="noPhotos" style="text-align: center; color: #888; padding: 2rem;">Aucune photo pour le moment.</p>
+            </div>
+            
+            <div id="adminPanel" class="admin-panel">
+                <h3 style="color: white; margin-bottom: 1rem;">📁 Panneau d'administration</h3>
+                <div class="photo-upload">
+                    <label style="color: white; display: block; margin-bottom: 0.5rem;">Ajouter une photo :</label>
+                    <input type="file" id="photoInput" accept="image/*">
+                    <button onclick="uploadPhoto()" class="admin-btn">📤 Télécharger la photo</button>
+                </div>
+            </div>
+        </section>
     </div>
 
     <footer>
-        <span class="emoji-pulse">©</span> 2025-2026 Collège Jacques Prévert - Bergerac</p>
-        <span class="emoji-animated">✨</span> Site créé par un élève du collège   <span class="emoji-pulse">💙</span>
+        <p><span class="emoji-pulse">©</span> 2025-2026 Collège Jacques Prévert - Bergerac</p>
+        <p><span class="emoji-animated">✨</span> Site créé par un élève du collège - Représentant des élèves <span class="emoji-pulse">💙</span></p>
+        <button onclick="openAdminModal()" class="admin-btn" style="margin-top: 1.5rem;">🔐 Administration</button>
     </footer>
+
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <span class="emoji-animated">⬆️</span>
+    </div>
+
+    <div id="adminModal" class="admin-modal">
+        <div class="admin-content">
+            <h3>🔒 Accès Administration</h3>
+            <input type="password" id="adminPassword" placeholder="Entrez le code d'accès" maxlength="4">
+            <button onclick="checkAdminCode()">✅ Valider</button>
+            <button onclick="closeAdminModal()">❌ Annuler</button>
+            <p id="errorMsg" style="color: #ff4444; text-align: center; margin-top: 1rem; display: none;">Code incorrect !</p>
+        </div>
+    </div>
+
+    <script>
+        // Bouton retour en haut
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Gestion de l'administration
+        let isAdmin = false;
+
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.add('show');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('show');
+        }
+
+        function checkAdminCode() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === '2516') {
+                isAdmin = true;
+                closeAdminModal();
+                document.getElementById('adminPanel').classList.add('show');
+                alert('✅ Accès administrateur activé !');
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        // Gestion des photos
+        let photos = [];
+
+        function loadPhotos() {
+            const savedPhotos = localStorage.getItem('college-photos');
+            if (savedPhotos) {
+                photos = JSON.parse(savedPhotos);
+            }
+            displayPhotos();
+        }
+
+        function displayPhotos() {
+            const gallery = document.getElementById('photoGallery');
+            const noPhotos = document.getElementById('noPhotos');
+            
+            if (photos.length === 0) {
+                noPhotos.style.display = 'block';
+                gallery.innerHTML = '';
+                return;
+            }
+            
+            noPhotos.style.display = 'none';
+            gallery.innerHTML = photos.map((photo, index) => `
+                <div class="photo-item">
+                    <img src="${photo}" alt="Photo ${index + 1}">
+                    ${isAdmin ? `<button class="delete-btn" onclick="deletePhoto(${index})">×</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function uploadPhoto() {
+            if (!isAdmin) {
+                alert('❌ Vous devez être administrateur pour ajouter des photos');
+                return;
+            }
+
+            const input = document.getElementById('photoInput');
+            const file = input.files[0];
+            
+            if (!file) {
+                alert('⚠️ Veuillez sélectionner une photo');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photos.push(e.target.result);
+                localStorage.setItem('college-photos', JSON.stringify(photos));
+                displayPhotos();
+                input.value = '';
+                alert('✅ Photo ajoutée avec succès !');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function deletePhoto(index) {
+            if (!isAdmin) return;
+            
+            if (confirm('🗑️ Voulez-vous vraiment supprimer cette photo ?')) {
+                photos.splice(index, 1);
+                localStorage.setItem('college-photos', JSON.stringify(photos));
+                displayPhotos();
+            }
+        }
+
+        // Charger les photos au démarrage
+        loadPhotos();
+
+        // Fermer le modal en cliquant en dehors
+        document.getElementById('adminModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAdminModal();
+            }
+        });
+    </script>
 </body>
-
 </html>
-

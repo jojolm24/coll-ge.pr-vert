@@ -333,20 +333,44 @@
         }
 
         .admin-btn {
-            background: #2a2a2a;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #444;
-            border-radius: 25px;
+            padding: 1rem 2rem;
+            border: 2px solid #666;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: bold;
             margin-top: 1rem;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .admin-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .admin-btn:hover {
-            background: #3a3a3a;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.7);
+            border-color: #888;
         }
 
         .admin-modal {
@@ -441,6 +465,19 @@
             margin-bottom: 1rem;
         }
 
+        .photo-upload textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 2px solid #444;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            min-height: 80px;
+        }
+
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -461,6 +498,14 @@
             height: 200px;
             object-fit: cover;
             display: block;
+        }
+
+        .photo-caption {
+            padding: 0.8rem;
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            background: #1a1a1a;
         }
 
         .photo-item .delete-btn {
@@ -702,6 +747,8 @@
                 <div class="photo-upload">
                     <label style="color: white; display: block; margin-bottom: 0.5rem;">Ajouter une photo :</label>
                     <input type="file" id="photoInput" accept="image/*">
+                    <label style="color: white; display: block; margin-bottom: 0.5rem;">Description (optionnel) :</label>
+                    <textarea id="photoDescription" placeholder="Ajoutez une description à votre photo..."></textarea>
                     <button onclick="uploadPhoto()" class="admin-btn">📤 Télécharger la photo</button>
                 </div>
             </div>
@@ -711,7 +758,9 @@
     <footer>
         <p><span class="emoji-pulse">©</span> 2025-2026 Collège Jacques Prévert - Bergerac</p>
         <p><span class="emoji-animated">✨</span> Site créé par un élève du collège - Représentant des élèves <span class="emoji-pulse">💙</span></p>
-        <button onclick="openAdminModal()" class="admin-btn" style="margin-top: 1.5rem;">🔐 Administration</button>
+        <button onclick="openAdminModal()" class="admin-btn" style="margin-top: 1.5rem; position: relative; z-index: 1;">
+            <span class="emoji-rotate">🔐</span> Administration
+        </button>
     </footer>
 
     <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
@@ -775,9 +824,14 @@
         let photos = [];
 
         function loadPhotos() {
-            const savedPhotos = localStorage.getItem('college-photos');
-            if (savedPhotos) {
-                photos = JSON.parse(savedPhotos);
+            try {
+                const savedPhotos = localStorage.getItem('college-photos-public');
+                if (savedPhotos) {
+                    photos = JSON.parse(savedPhotos);
+                }
+            } catch (e) {
+                console.error('Erreur chargement photos:', e);
+                photos = [];
             }
             displayPhotos();
         }
@@ -795,7 +849,8 @@
             noPhotos.style.display = 'none';
             gallery.innerHTML = photos.map((photo, index) => `
                 <div class="photo-item">
-                    <img src="${photo}" alt="Photo ${index + 1}">
+                    <img src="${photo.image}" alt="Photo ${index + 1}">
+                    ${photo.description ? `<div class="photo-caption">${photo.description}</div>` : ''}
                     ${isAdmin ? `<button class="delete-btn" onclick="deletePhoto(${index})">×</button>` : ''}
                 </div>
             `).join('');
@@ -808,6 +863,7 @@
             }
 
             const input = document.getElementById('photoInput');
+            const description = document.getElementById('photoDescription').value.trim();
             const file = input.files[0];
             
             if (!file) {
@@ -817,11 +873,15 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                photos.push(e.target.result);
-                localStorage.setItem('college-photos', JSON.stringify(photos));
+                photos.push({
+                    image: e.target.result,
+                    description: description
+                });
+                localStorage.setItem('college-photos-public', JSON.stringify(photos));
                 displayPhotos();
                 input.value = '';
-                alert('✅ Photo ajoutée avec succès !');
+                document.getElementById('photoDescription').value = '';
+                alert('✅ Photo ajoutée avec succès ! Elle est maintenant visible par tous.');
             };
             reader.readAsDataURL(file);
         }
@@ -831,7 +891,7 @@
             
             if (confirm('🗑️ Voulez-vous vraiment supprimer cette photo ?')) {
                 photos.splice(index, 1);
-                localStorage.setItem('college-photos', JSON.stringify(photos));
+                localStorage.setItem('college-photos-public', JSON.stringify(photos));
                 displayPhotos();
             }
         }
